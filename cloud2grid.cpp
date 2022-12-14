@@ -11,7 +11,7 @@ using namespace std;
 
 
 // [[Rcpp::export]]
-void cloud2grid(DataFrame df,
+void cloud2grid_(DataFrame df,
                  NumericMatrix vars,
                  NumericMatrix vec,
                  double min_x,
@@ -35,7 +35,6 @@ void cloud2grid(DataFrame df,
   int n = x.size();
 
   for(int i = 0; i<n;i++){
-
     std::vector<double> p{x[i],y[i],z[i]};
 
     int cx=(int)((p[0]-min_x)/res_x);

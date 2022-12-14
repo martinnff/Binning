@@ -38,7 +38,7 @@ MatrixXd convert_vvd_to_matrix(vector<vector<double> > vvd) {
 }
 
 
-/* 
+/*
  * Get Neigbohrs weights and index
  */
 
@@ -79,10 +79,9 @@ void getWeights(std::vector<double> &weights,
 
 
 // [[Rcpp::export]]
-void eigen_features(std::vector<double> &weights,
+void eigenFeatures_(std::vector<double> &weights,
                     NumericMatrix &feat,
                     int dimx, int dimy, int dimz,
-                    double resx, double resy, double resz,
                     int kernel,
                     int n_threads,
                     bool new_coords = true){
@@ -101,10 +100,10 @@ void eigen_features(std::vector<double> &weights,
     //Object to contain the weigths and the 3d coords of the vertices
     std::vector<double> w;
     std::vector<std::vector<double> > m;
-    
+
     getWeights(weights, i, indexx, indexy, indexz, dimx, dimy, dimz,
                base_area, kernel, w, m);
-    
+
     double s=0;
     double means[3]={0,0,0};
     for(int j=0;j<w.size();j++){
@@ -139,13 +138,13 @@ void eigen_features(std::vector<double> &weights,
       es.compute(mat);
       Eigen::VectorXd ev = es.eigenvalues().real();
       if(ev[0]==0){
-        ev[0]=0.000011;
+        ev[0]=0.0000011;
       }
       if(ev[1]==0){
-        ev[1]=0.000010;
+        ev[1]=0.0000010;
       }
       if(ev[2]==0){
-        ev[2]=0.000013;
+        ev[2]=0.0000013;
       }
       //Eigenfeatures extraction
       //linearity
