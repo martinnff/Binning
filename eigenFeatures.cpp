@@ -85,14 +85,12 @@ void eigenFeatures_(std::vector<double> &weights,
                     int kernel,
                     int n_threads,
                     bool new_coords = true){
-
   int n = weights.size();
   int square_size = 2*kernel+1;
   int base_area = dimx * dimy;
   omp_set_num_threads(n_threads);
   #pragma omp parallel for
   for(int i = 0; i<n;i++){ //Loop over the grid vertices
-
     //get the 3d position from the linear index
     int indexz = (int)(i/base_area);
     int indexx = (int)((i-indexz*base_area)/dimy);

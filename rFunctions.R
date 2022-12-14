@@ -1,9 +1,6 @@
 
-
-library(Rcpp)
-
-sourceCpp('cloud2grid.cpp')
-sourceCpp('eigenFeatures.cpp')
+Rcpp::sourceCpp('cloud2grid.cpp')
+Rcpp::sourceCpp('eigenFeatures.cpp')
 
 cloud2grid = function(xyz, vars, rx, ry, rz, n_threads=1){
 
@@ -46,7 +43,7 @@ cloud2grid = function(xyz, vars, rx, ry, rz, n_threads=1){
 
 eigenFeatures = function(weight_grid,kernel,n_threads=1){
  out = list()
- for(i in 1:length(kernel)){
+ for(i in seq_along(kernel)){
    out[[i]] = matrix(data=0,
                      ncol=7,
                      nrow=length(weight_grid$weights))
@@ -59,7 +56,7 @@ eigenFeatures = function(weight_grid,kernel,n_threads=1){
                         paste('anisotropy',as.character(kernel[i]),sep='_'),
                         paste('sum',as.character(kernel[i]),sep='_'))
  }
-  for(i in 1:length(kernel)){
+  for(i in seq_along(kernel)){
 
     eigenFeatures_(weight_grid$weights,
                    out[[i]],

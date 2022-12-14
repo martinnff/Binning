@@ -27,7 +27,6 @@ void cloud2grid_(DataFrame df,
                  int ry,
                  int rz,
                  int n_threads){
-
   std::vector<double> x = df[0];
   std::vector<double> y = df[1];
   std::vector<double> z = df[2];
