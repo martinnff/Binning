@@ -38,11 +38,51 @@ MatrixXd convert_vvd_to_matrix(vector<vector<double> > vvd) {
 }
 
 
+/* 
+ * Get Neigbohrs weights and index
+ */
+
+void getWeights(std::vector<double> &weights,
+                        int i,
+                        int indexx, int indexy, int indexz,
+                        int dimx, int dimy, int dimz,
+                        int base_area,
+                        int kernel,
+                        std::vector<double> &w,
+                        std::vector<std::vector<double> > &m
+                        ) {
+  if(weights[i]>0){//loop over all the neighbors of each vertex
+    for(int xx = -kernel; xx<=kernel;xx++){
+      int indx=indexx+xx;
+      if(indx>=0 and indx<dimx){
+        for(int yy = -kernel; yy<=kernel;yy++){
+          int indy=indexy+yy;
+          if(indy>=0 and indy<dimy){
+            for(int zz = -kernel; zz<=kernel;zz++){
+              int indz=indexz+zz;
+              if(indz>=0 and indz<dimz){
+                //recover the linear index of the neighbor and extract the weight and 3dcoords
+                int index_lin = indz*base_area+indx*(dimy)+indy;
+                w.push_back(weights[index_lin]);
+                std::vector<double> a={(double)xx,
+                                       (double)yy,
+                                       (double)zz};
+                m.push_back(a);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
 // [[Rcpp::export]]
 void eigen_features(std::vector<double> &weights,
                     NumericMatrix &feat,
-                    int dimx, dimy, dimz,
-                    double resx, resy, resz,
+                    int dimx, int dimy, int dimz,
+                    double resx, double resy, double resz,
                     int kernel,
                     int n_threads,
                     bool new_coords = true){
@@ -61,30 +101,10 @@ void eigen_features(std::vector<double> &weights,
     //Object to contain the weigths and the 3d coords of the vertices
     std::vector<double> w;
     std::vector<std::vector<double> > m;
-    if(weights[i]>0){//loop over all the neighbors of each vertex
-      for(int xx = -kernel; xx<=kernel;xx++){
-        int indx=indexx+xx;
-        if(indx>=0 and indx<dimx){
-          for(int yy = -kernel; yy<=kernel;yy++){
-            int indy=indexy+yy;
-            if(indy>=0 and indy<dimy){
-              for(int zz = -kernel; zz<=kernel;zz++){
-                int indz=indexz+zz;
-                if(indz>=0 and indz<dimz){
-                  //recover the linear index of the neighbor and extract the weight and 3dcoords
-                  int index_lin = indz*base_area+indx*(dimy)+indy;
-                  w.push_back(weights[index_lin]);
-                  std::vector<double> a={(double)xx,
-                                         (double)yy,
-                                         (double)zz};
-                  m.push_back(a);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    
+    getWeights(weights, i, indexx, indexy, indexz, dimx, dimy, dimz,
+               base_area, kernel, w, m);
+    
     double s=0;
     double means[3]={0,0,0};
     for(int j=0;j<w.size();j++){
