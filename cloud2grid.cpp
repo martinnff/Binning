@@ -31,8 +31,8 @@ void cloud2grid(DataFrame df,
   std::vector<double> x = df[0];
   std::vector<double> y = df[1];
   std::vector<double> z = df[2];
-  int n = x.size();
 
+  int n = x.size();
 
   for(int i = 0; i<n;i++){
 
@@ -79,45 +79,26 @@ void cloud2grid(DataFrame df,
     int index7 = (cz+1)*(rx)*(ry)+(cx+1)*(ry)+cy+1;
     int index8 = (cz+1)*(rx)*(ry)+(cx+1)*(ry)+cy;
 
-
-
     vec(index1,0)+=p1;
-
     vec(index2,0)+=p2;
-
     vec(index3,0)+=p3;
-  
     vec(index4,0)+=p4;
-  
     vec(index5,0)+=p5;
-  
     vec(index6,0)+=p6;
-  
     vec(index7,0)+=p7;
-  
     vec(index8,0)+=p8;
-  for(int c = 1;c<vec.cols();c++){
-  
-      vec(index1,c)+=p1*vars(i,c-1);
-  
-      vec(index2,c)+=p2*vars(i,c-1);
-  
-      vec(index3,c)+=p3*vars(i,c-1);
-  
-      vec(index4,c)+=p4*vars(i,c-1);
-  
-      vec(index5,c)+=p5*vars(i,c-1);
-  
-      vec(index6,c)+=p6*vars(i,c-1);
-  
-      vec(index7,c)+=p7*vars(i,c-1);
-  
-      vec(index8,c)+=p8*vars(i,c-1);
 
-  }
-
-  }
-
+    for(int c = 1;c<vec.cols();c++){
+        vec(index1,c)+=p1*vars(i,c-1);
+        vec(index2,c)+=p2*vars(i,c-1);
+        vec(index3,c)+=p3*vars(i,c-1);
+        vec(index4,c)+=p4*vars(i,c-1);
+        vec(index5,c)+=p5*vars(i,c-1);
+        vec(index6,c)+=p6*vars(i,c-1);
+        vec(index7,c)+=p7*vars(i,c-1);
+        vec(index8,c)+=p8*vars(i,c-1);
+        }
+    }
 }
 
 

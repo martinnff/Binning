@@ -15,7 +15,6 @@ using namespace Eigen;
 // Convert a 2-D vector<vector<double> > into an Eigen MatrixXd.
 // Throws exception if rows do not have same length.
 MatrixXd convert_vvd_to_matrix(vector<vector<double> > vvd) {
-
   std::size_t n_rows = vvd.size();
   std::size_t n_cols = vvd.at(0).size();
 
@@ -23,7 +22,6 @@ MatrixXd convert_vvd_to_matrix(vector<vector<double> > vvd) {
   result.row(0) = VectorXd::Map(&vvd[0][0], n_cols);
 
   for (std::size_t i = 1; i < n_rows; i++) {
-
     if (n_cols != vvd.at(i).size()) {
       char buffer[200];
       snprintf(buffer, 200,
@@ -40,26 +38,18 @@ MatrixXd convert_vvd_to_matrix(vector<vector<double> > vvd) {
 }
 
 
-
-
-
 // [[Rcpp::export]]
-void eigen_features2(std::vector<double> &weights,
+void eigen_features(std::vector<double> &weights,
                     NumericMatrix &feat,
-                    int dimx,
-                    int dimy,
-                    int dimz,
-                    double resx,
-                    double resy,
-                    double resz,
+                    int dimx, dimy, dimz,
+                    double resx, resy, resz,
                     int kernel,
                     int n_threads,
-                    bool coords = true){
+                    bool new_coords = true){
 
   int n = weights.size();
   int square_size = 2*kernel+1;
   int base_area = dimx * dimy;
-
   omp_set_num_threads(n_threads);
   #pragma omp parallel for
   for(int i = 0; i<n;i++){ //Loop over the grid vertices
@@ -68,7 +58,6 @@ void eigen_features2(std::vector<double> &weights,
     int indexz = (int)(i/base_area);
     int indexx = (int)((i-indexz*base_area)/dimy);
     int indexy = (i-indexz*base_area) % dimy;
-
     //Object to contain the weigths and the 3d coords of the vertices
     std::vector<double> w;
     std::vector<std::vector<double> > m;
@@ -153,7 +142,7 @@ void eigen_features2(std::vector<double> &weights,
       feat(i,5)=(ev[0]-ev[2])/ev[1];
       //sum
       feat(i,6)=ev[0]+ev[1]+ev[2];
-      if(coords){
+      if(new_coords){
         feat(i,7)=indexx;
         feat(i,8)=indexy;
         feat(i,9)=indexz;
