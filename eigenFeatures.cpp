@@ -116,6 +116,7 @@ void eigenFeatures_(std::vector<double> &weights,
     double mean_z = means[2]/s;
 
     //center positions
+    #pragma omp simd
     for(int j=0;j<m.size();j++){
       m[j][0]-=mean_x;
       m[j][1]-=mean_y;
@@ -127,6 +128,7 @@ void eigenFeatures_(std::vector<double> &weights,
       Eigen::MatrixXd mat = convert_vvd_to_matrix(m);
       Eigen::MatrixXd ww(w.size(),w.size());
       ww.setZero();
+      #pragma opm simd
       for(int wi = 0;wi<w.size();wi++){
         ww(wi,wi)=w[wi];
       }

@@ -21,7 +21,6 @@ cloud2grid = function(xyz, vars, rx, ry, rz, n_threads=1){
   minz=min(xyz[,3])
 
   out=matrix(data=0,ncol=ncol(vars)+1,nrow=(x_steps*y_steps*z_steps))
-  
   cloud2grid_(as.matrix(xyz),
              as.matrix(vars),
              out,
@@ -30,7 +29,7 @@ cloud2grid = function(xyz, vars, rx, ry, rz, n_threads=1){
              x_grid,y_grid,z_grid,
              x_steps,y_steps,z_steps,
              n_threads)
-  
+
   list(weights = out[,1], 
        vars=out[,2:ncol(vars)],
        steps=list(x=x_steps,
