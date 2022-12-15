@@ -46,6 +46,7 @@ void getWeights(std::vector<double> &weights,
                         int i,
                         int indexx, int indexy, int indexz,
                         int dimx, int dimy, int dimz,
+                        double resx, double resy, double resz,
                         int base_area,
                         int kernel,
                         std::vector<double> &w,
@@ -64,9 +65,9 @@ void getWeights(std::vector<double> &weights,
                 //recover the linear index of the neighbor and extract the weight and 3dcoords
                 int index_lin = indz*base_area+indx*(dimy)+indy;
                 w.push_back(weights[index_lin]);
-                std::vector<double> a={(double)xx,
-                                       (double)yy,
-                                       (double)zz};
+                std::vector<double> a={(double)xx*resx,
+                                       (double)yy*resy,
+                                       (double)zz*resz};
                 m.push_back(a);
               }
             }
@@ -82,6 +83,7 @@ void getWeights(std::vector<double> &weights,
 void eigenFeatures_(std::vector<double> &weights,
                     NumericMatrix &feat,
                     int dimx, int dimy, int dimz,
+                    double resx, double resy, double resz,
                     int kernel,
                     int n_threads,
                     bool new_coords = true){
@@ -99,7 +101,10 @@ void eigenFeatures_(std::vector<double> &weights,
     std::vector<double> w;
     std::vector<std::vector<double> > m;
 
-    getWeights(weights, i, indexx, indexy, indexz, dimx, dimy, dimz,
+    getWeights(weights, i,
+               indexx, indexy, indexz,
+               dimx, dimy, dimz,
+               resx, resy, resz,
                base_area, kernel, w, m);
 
     double s=0;
@@ -146,8 +151,27 @@ void eigenFeatures_(std::vector<double> &weights,
       if(ev[2]==0){
         ev[2]=0.0000013;
       }
-      //Eigenfeatures extraction
-      //linearity
+      if(new_coords){
+          //linearity
+          feat(i,3)=(ev[0]-ev[1])/ev[0];
+          //planarity
+          feat(i,4)=(ev[1]-ev[2])/ev[0];
+          //scattering
+          feat(i,5)=ev[2]/ev[0];
+          //surface variation
+          feat(i,6)=ev[0]/(ev[0]+ev[1]+ev[2]);
+          //omnivariance
+          feat(i,7)=sqrt(ev[0]*ev[2]*ev[1]);
+          //anisotropy
+          feat(i,8)=(ev[0]-ev[2])/ev[1];
+          //sum
+          feat(i,9)=ev[0]+ev[1]+ev[2];
+          //coords
+          feat(i,0)=indexx*resx;
+          feat(i,1)=indexy*resy;
+          feat(i,2)=indexz*resz;
+      }else{
+       //linearity
       feat(i,0)=(ev[0]-ev[1])/ev[0];
       //planarity
       feat(i,1)=(ev[1]-ev[2])/ev[0];
@@ -161,10 +185,6 @@ void eigenFeatures_(std::vector<double> &weights,
       feat(i,5)=(ev[0]-ev[2])/ev[1];
       //sum
       feat(i,6)=ev[0]+ev[1]+ev[2];
-      if(new_coords){
-        feat(i,7)=indexx;
-        feat(i,8)=indexy;
-        feat(i,9)=indexz;
       }
     }
   }

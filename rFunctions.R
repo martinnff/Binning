@@ -42,6 +42,7 @@ cloud2grid = function(xyz, vars, rx, ry, rz, n_threads=1){
 
 eigenFeatures = function(weight_grid,kernel,n_threads=1){
  out = list()
+ ind = weight_grid>0
  for(i in seq_along(kernel)){
    out[[i]] = matrix(data=0,
                      ncol=7,
@@ -66,5 +67,6 @@ eigenFeatures = function(weight_grid,kernel,n_threads=1){
                    n_threads,
                    new_coords = F)
     }
-  do.call(cbind, out)
+  out = do.call(cbind, out)
+  out[ind,]
 }
