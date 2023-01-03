@@ -22,3 +22,7 @@ Finally we can use the eigenfeatures of each node as well as the weighted variab
 The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It consists of wraper functions written in R to interface to this c++ code.
 
 The images below shows the raw pointcloud of three geometric shapes and the Omnivariance extracted using a neighborhood cube of size 3 plotted on the grid, this feature seems to be usefull to identify the shape of corners.
+
+![Alt text](https://github.com/martinnff/Procedural-terrain/blob/main/image2.png "Raw pointcloud")
+
+![Alt text](https://github.com/martinnff/Procedural-terrain/blob/main/image1.png "Omnivariance")
