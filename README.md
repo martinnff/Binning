@@ -9,14 +9,16 @@ On this grid of weights acts the function eigenFeatures. This function goes thro
 
 Finally we can use the eigenfeatures of each node as well as the weighted variables or labels to perform prediction or classification tasks. The eigenfeatures extracted are the folowing:
 
-\begin{itemize}
-  \item {\bf Linearity} $= \frac{ev_1-ev_2}{ev_1} $
-  \item {\bf Planarity} $=\frac{ev_2-ev_3}{ev_1}$
-  \item {\bf Scattering} $=\frac{ev_3}{ev_1}$
-  \item {\bf Surface variation} $=\frac{ev_1}{ev_1+ev_2+ev_3}$
-  \item {\bf Omnivariance} $=\sqrt{ev_1 \cdot ev_2 \cdot ev_3}$
-  \item {\bf Anisotropy} $=\frac{ev_1-ev_3}{ev_2}$
-  \item {\bf Sum} $=ev_1+ev_2+ev_3$
-\end{itemize}
+
+  - ${\bf Linearity} = \frac{ev_1-ev_2}{ev_1} $
+  - ${\bf Planarity} =\frac{ev_2-ev_3}{ev_1}$
+  - ${\bf Scattering} =\frac{ev_3}{ev_1}$
+  - ${\bf Surface variation} =\frac{ev_1}{ev_1+ev_2+ev_3}$
+  - ${\bf Omnivariance} =\sqrt{ev_1 \cdot ev_2 \cdot ev_3}$
+  - ${\bf Anisotropy} =\frac{ev_1-ev_3}{ev_2}$
+  - ${\bf Sum} =ev_1+ev_2+ev_3$
+
 
 The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It consists of wraper functions written in R to interface to this c++ code.
+
+The images below shows the raw pointcloud of three geometric shapes and the Omnivariance extracted using a neighborhood cube of size 3 plotted on the grid, this feature seems to be usefull to identify the shape of corners.
