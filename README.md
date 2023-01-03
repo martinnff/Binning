@@ -5,7 +5,7 @@ This repository aims to provide tools for the extraction of geometric features i
 
 This toolkit consists of two parts. The cloud2grid function builds a three-dimensional grid over the point cloud and distributes the weight of the points on each vertex of the grid. It also allows to distribute other variables or labels on these vertices in a weighted way.
 
-On this grid of weights acts the function eigenFeatures. This function goes through all the vertices and for each one of them extracts a neighbourhood environment with the weights of the neighbouring points, on this matrix of weights performs the decomposition in eigenvalues and eigenvectors and extracts the eigenfeatures and the normal vector. When extracting these features in environments defined by a grid, the process is very fast, since it avoids calculating the neighbourhoods in each point.
+On this grid of weights acts the function eigenFeatures. This function goes through all the vertices and for each one of them extracts a neighbourhood environment with the weights of the neighbouring points, on this matrix of weights performs the decomposition in eigenvalues and eigenvectors and extracts the eigenfeatures and the normals. When extracting these features in environments defined by a grid, the process is very fast, since it avoids calculating the neighbourhoods in each point.
 
 Finally we can use the eigenfeatures of each node as well as the weighted variables or labels to perform prediction or classification tasks. The eigenfeatures extracted are the folowing:
 
@@ -13,7 +13,7 @@ Finally we can use the eigenfeatures of each node as well as the weighted variab
   - ${\bf Linearity} = \frac{ev_1-ev_2}{ev_1} $
   - ${\bf Planarity} =\frac{ev_2-ev_3}{ev_1}$
   - ${\bf Scattering} =\frac{ev_3}{ev_1}$
-  - ${\bf Surface variation} =\frac{ev_1}{ev_1+ev_2+ev_3}$
+  - ${\bf Surface Variation} =\frac{ev_1}{ev_1+ev_2+ev_3}$
   - ${\bf Omnivariance} =\sqrt{ev_1 \cdot ev_2 \cdot ev_3}$
   - ${\bf Anisotropy} =\frac{ev_1-ev_3}{ev_2}$
   - ${\bf Sum} =ev_1+ev_2+ev_3$
