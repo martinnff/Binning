@@ -5,7 +5,7 @@ This repository aims to provide tools for the extraction of geometric features i
 
 This toolkit consists of two parts. The cloud2grid function builds a three-dimensional grid over the point cloud and distributes the weight of the points on each vertex of the grid. It also allows to distribute other variables or labels on these vertices in a weighted way.
 
-On this grid of weights acts the function eigenFeatures. This function goes through all the vertices and for each one of them extracts a neighbourhood environment with the weights of the neighbouring points, on this matrix of weights performs the decomposition in eigenvalues and eigenvectors and extracts the eigenfeatures in this environment. When extracting these features in environments defined by a grid, the process is very fast, since it avoids calculating the neighbourhoods in each point.
+On this grid of weights acts the function eigenFeatures. This function goes through all the vertices and for each one of them extracts a neighbourhood environment with the weights of the neighbouring points, on this matrix of weights performs the decomposition in eigenvalues and eigenvectors and extracts the eigenfeatures and the normal vector. When extracting these features in environments defined by a grid, the process is very fast, since it avoids calculating the neighbourhoods in each point.
 
 Finally we can use the eigenfeatures of each node as well as the weighted variables or labels to perform prediction or classification tasks. The eigenfeatures extracted are the folowing:
 
@@ -19,9 +19,9 @@ Finally we can use the eigenfeatures of each node as well as the weighted variab
   - ${\bf Sum} =ev_1+ev_2+ev_3$
 
 
-The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It consists of wraper functions written in R to interface to this c++ code.
+The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It also consists of wraper functions written in R to interface to this c++ code.
 
-The images below shows the raw pointcloud of three geometric shapes and the Omnivariance extracted using a neighborhood cube of size 3 plotted on the grid, this feature seems to be usefull to identify the shape of corners.
+The images below shows the raw pointcloud of three geometric shapes and the omnivariance extracted using a neighborhood cube of size 3, the omnivariance is ploted on the grid nodes. This feature seems to be usefull to identify the shape of corners.
 
 ![Alt text](https://github.com/martinnff/Binning/blob/master/image2.png "Raw pointcloud")
 
