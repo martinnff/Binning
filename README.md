@@ -7,6 +7,16 @@ This toolkit consists of two parts. The cloud2grid function builds a three-dimen
 
 On this grid of weights acts the function eigenFeatures. This function goes through all the vertices and for each one of them extracts a neighbourhood environment with the weights of the neighbouring points, on this matrix of weights performs the decomposition in eigenvalues and eigenvectors and extracts the eigenfeatures in this environment. When extracting these features in environments defined by a grid, the process is very fast, since it avoids calculating the neighbourhoods in each point.
 
-Finally we can use the eigenfeatures of each node as well as the weighted variables or labels to perform prediction or classification tasks.
+Finally we can use the eigenfeatures of each node as well as the weighted variables or labels to perform prediction or classification tasks. The eigenfeatures extracted are the folowing:
+
+\begin{itemize}
+  \item {\bf Linearity} $= \frac{ev_1-ev_2}{ev_1} $
+  \item {\bf Planarity} $=\frac{ev_2-ev_3}{ev_1}$
+  \item {\bf Scattering} $=\frac{ev_3}{ev_1}$
+  \item {\bf Surface variation} $=\frac{ev_1}{ev_1+ev_2+ev_3}$
+  \item {\bf Omnivariance} $=\sqrt{ev_1 \cdot ev_2 \cdot ev_3}$
+  \item {\bf Anisotropy} $=\frac{ev_1-ev_3}{ev_2}$
+  \item {\bf Sum} $=ev_1+ev_2+ev_3$
+\end{itemize}
 
 The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It consists of wraper functions written in R to interface to this c++ code.
