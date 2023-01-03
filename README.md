@@ -23,6 +23,6 @@ The functions were written in c++ using the Rcpp package and make use of openMP 
 
 The images below shows the raw pointcloud of three geometric shapes and the Omnivariance extracted using a neighborhood cube of size 3 plotted on the grid, this feature seems to be usefull to identify the shape of corners.
 
-![Alt text](https://github.com/martinnff/Procedural-terrain/blob/main/image2.png "Raw pointcloud")
+![Alt text](https://github.com/martinnff/Binning/blob/master/image2.png "Raw pointcloud")
 
-![Alt text](https://github.com/martinnff/Procedural-terrain/blob/main/image1.png "Omnivariance")
+![Alt text](https://github.com/martinnff/Binning/blob/master/image1.png "Omnivariance")
