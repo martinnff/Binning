@@ -19,7 +19,7 @@ Finally we can use the eigenfeatures of each node as well as the weighted variab
   - ${\bf Sum} =ev_1+ev_2+ev_3$
 
 
-The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It also consists of wraper functions written in R to interface to this c++ code.
+The functions were written in c++ using the Rcpp package and make use of openMP parallelisation. It also consists of wraper functions written in R to interface this c++ code.
 
 The images below shows the raw pointcloud of three geometric shapes and the surface variation extracted using a neighborhood cube of size 3, the surface variation is ploted on the grid nodes. This feature seems to be usefull to identify the shape of corners.
 
