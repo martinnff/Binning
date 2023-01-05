@@ -133,7 +133,7 @@ void eigenFeatures_(std::vector<double> &weights,
       Eigen::MatrixXd mat = convert_vvd_to_matrix(m);
       Eigen::MatrixXd ww(w.size(),w.size());
       ww.setZero();
-      #pragma opm simd
+      #pragma omp simd
       for(int wi = 0;wi<w.size();wi++){
         ww(wi,wi)=w[wi];
       }
@@ -142,6 +142,15 @@ void eigenFeatures_(std::vector<double> &weights,
       Eigen::SelfAdjointEigenSolver<MatrixXd> es;
       es.compute(mat);
       Eigen::VectorXd ev = es.eigenvalues().real();
+      Eigen::MatrixXd evec = es.eigenvectors().real();
+
+      int min_ind = 0;
+      double minimum=ev[0];
+      for(int k=0;k<3;k++){
+        if(ev[k]<minimum){
+          min_ind=k;
+        }
+      }
       if(ev[0]==0){
         ev[0]=0.0000011;
       }
@@ -166,6 +175,10 @@ void eigenFeatures_(std::vector<double> &weights,
           feat(i,8)=(ev[0]-ev[2])/ev[1];
           //sum
           feat(i,9)=ev[0]+ev[1]+ev[2];
+          //normals
+          feat(i,10)=evec(min_ind,0);
+          feat(i,11)=evec(min_ind,1);
+          feat(i,12)=evec(min_ind,2);
           //coords
           feat(i,0)=indexx*resx;
           feat(i,1)=indexy*resy;
@@ -185,6 +198,10 @@ void eigenFeatures_(std::vector<double> &weights,
       feat(i,5)=(ev[0]-ev[2])/ev[1];
       //sum
       feat(i,6)=ev[0]+ev[1]+ev[2];
+      //Normals
+      feat(i,7)=evec(min_ind,0);
+      feat(i,8)=evec(min_ind,1);
+      feat(i,9)=evec(min_ind,2);
       }
     }
   }
