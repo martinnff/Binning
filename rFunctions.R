@@ -1,6 +1,6 @@
 
-Rcpp::sourceCpp('./scripts/cloud2grid.cpp')
-Rcpp::sourceCpp('./scripts/eigenFeatures.cpp')
+Rcpp::sourceCpp('cloud2grid.cpp')
+Rcpp::sourceCpp('eigenFeatures.cpp')
 
 cloud2grid = function(xyz, vars=NULL, rx, ry, rz, n_threads=1){
 
