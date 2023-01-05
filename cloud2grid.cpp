@@ -3,13 +3,9 @@
 #include <omp.h>
 #include <iostream>
 
-
 // [[Rcpp::plugins(openmp)]]
 using namespace Rcpp;
 using namespace std;
-
-
-
 
 // [[Rcpp::export]]
 void cloud2grid_(DataFrame df,
@@ -87,6 +83,5 @@ void cloud2grid_(DataFrame df,
         vec(index[j],c)+=w[j]*vars(i,c-1);
       }
     }
-
   }
 }
