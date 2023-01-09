@@ -41,7 +41,6 @@ source('rFunctions.R') # Source the code
 n = 100000
 x = runif(n,0,10)
 y = runif(n,0,10)
-z = runif(n,0,10)
 
 xyz = data.frame(x = x,
                  y = y,
