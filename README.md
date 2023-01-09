@@ -38,6 +38,7 @@ Here is a small example of how to use these tools.
 source('rFunctions.R') # Source the code
 
 # create an example pointcloud
+n = 100000
 x = runif(n,0,10)
 y = runif(n,0,10)
 z = runif(n,0,10)
