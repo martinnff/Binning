@@ -29,3 +29,28 @@ The images below shows the raw pointcloud of three geometric shapes and the surf
 ![Alt text](https://github.com/martinnff/Binning/blob/master/image2.png "Raw pointcloud")
 
 ![Alt text](https://github.com/martinnff/Binning/blob/master/image1.png "Surface variation")
+
+## Usage
+
+Here is a small example of how to use these tools.
+
+```R
+source('rFunctions.R') # Source the code
+
+# create a example pointcloud
+x = runif(n,0,10)
+y = runif(n,0,10)
+z = runif(n,0,10)
+
+xyz = data.frame(x = x,
+                 y = y,
+                 z = sin(x)+cos(y))
+                 
+# Extract the weights using a grid with stepsize of 0.05.
+
+grid = cloud2grid(xyz,rx=0.05,ry=0.05,rz=0.05)
+
+# Use the weighted grid to extract the eigenfeatures in a cubic neighbourhood with size 2.
+
+features = eigenFeatures(grid,kernel=2)
+´´´
