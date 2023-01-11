@@ -22,8 +22,8 @@ void cloud2grid_(DataFrame df,
                  std::vector<double> grid_z,
                  int rx,
                  int ry,
-                 int rz,
-                 int n_threads){
+                 int rz
+                 ){
   std::vector<double> x = df[0];
   std::vector<double> y = df[1];
   std::vector<double> z = df[2];
@@ -75,7 +75,6 @@ void cloud2grid_(DataFrame df,
     for(int j=0;j<8;j++){
       vec(index[j],0)+=w[j];
     }
-
 
     #pragma omp simd
     for(int c = 1;c<vec.cols();c++){
