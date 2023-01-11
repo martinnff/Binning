@@ -1,6 +1,8 @@
-# Binning
 
 [![CodeFactor](https://www.codefactor.io/repository/github/martinnff/binning/badge)](https://www.codefactor.io/repository/github/martinnff/binning)
+
+
+# Binning
 
 Binning method to perform data cloud classificatión on low resoruces machines.
 
