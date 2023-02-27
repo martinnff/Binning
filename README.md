@@ -2,11 +2,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/martinnff/binning/badge)](https://www.codefactor.io/repository/github/martinnff/binning)
 
 
-Binning method to perform data cloud classification on low resoruces machines.
-
 # Binning
-
-Binning method to perform data cloud classificatión on low resoruces machines.
 
 
 This repository aims to provide tools for the extraction of geometric features in large point clouds and to allow the easy construction of robust classification models for this type of data.
